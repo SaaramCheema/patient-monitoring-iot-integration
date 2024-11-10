@@ -15,11 +15,13 @@ These instructions will help you set up and run the project on your local machin
 #### Backend
 
 1. Navigate to the backend directory:
+
    ```
    cd backend
    ```
 
 2. Install dependencies:
+
    ```
    npm install
    ```
@@ -32,11 +34,13 @@ These instructions will help you set up and run the project on your local machin
 #### Frontend
 
 1. Navigate to the frontend directory:
+
    ```
    cd frontend
    ```
 
 2. Install dependencies:
+
    ```
    npm install
    ```
@@ -45,4 +49,3 @@ These instructions will help you set up and run the project on your local machin
    ```
    npm start
    ```
-
