@@ -60,7 +60,7 @@ const LoginPage = () => {
         localStorage.setItem("token", responseData.token); // Store JWT token
         localStorage.setItem("userId", responseData.user._id); // Store user ID
         localStorage.setItem("userFullName", responseData.user.FullName); // Store full name
-        navigate("/profile");
+        navigate("/dashboard");
       }
     } catch (err) {
       setSuccess("");
