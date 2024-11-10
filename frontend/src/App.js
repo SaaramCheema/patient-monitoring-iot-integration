@@ -5,20 +5,15 @@ import LoginPage from "./pages/Login";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-
 const App = () => {
   return (
     <Router>
       <Routes>
-        
-        <Route path="/" element={<SignupPage/>} />
-        <Route path="/login" element={<LoginPage/>} />
-        
-        <Route
-          path="/profile"
-          element={<ProtectedRoute element={Profile} />}
-        />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
 
+        <Route path="/profile" element={<ProtectedRoute element={Profile} />} />
       </Routes>
     </Router>
   );
