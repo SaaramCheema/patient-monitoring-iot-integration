@@ -1,6 +1,6 @@
-# User-Authentication-Authorization-Deployment
+# Patient Monitoring and IoT Integration
 
-This project implements user authentication and authorization.
+This project implements the microservice of Patient Monitoring and IoT Integration of the HealthCare System.
 
 ## Getting Started
 
