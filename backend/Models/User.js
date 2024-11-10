@@ -6,38 +6,35 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    match: /.+\@.+\..+/ // Basic email format validation
+    match: /.+\@.+\..+/, // Basic email format validation
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   passwordHash: {
     type: String,
-    required: true
+    required: true,
   },
-  role: {
-    type: String,
-    required: true
+  roles: {
+    type: [String],
+    required: true,
   },
   status: {
     type: String,
     enum: ["active", "inactive", "suspended"],
-    required: true
-  },
-  googleId: { 
-    type: String, 
+    required: true,
   },
   createdAt: {
     type: Date,
     default: Date.now,
-    required: true
+    required: true,
   },
   updatedAt: {
     type: Date,
     default: Date.now,
-    required: true
-  }
+    required: true,
+  },
 });
 
 // Create a User model
