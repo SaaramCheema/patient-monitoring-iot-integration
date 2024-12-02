@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "backend",
   "version": "1.0.0",
   "main": "app.js",
@@ -7,8 +6,6 @@
   "author": "",
   "license": "ISC",
   "description": "",
-=======
->>>>>>> e3f7855bf26bd7242a7ed15c9c61fc939bd0a87c
   "dependencies": {
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
