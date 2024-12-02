@@ -1,2 +1,51 @@
-# patient-monitoring-iot-integration
-The "Patient Monitoring and IoT Integration Service" simulates real-time patient monitoring using IoT to integrate 14 microservices for data generation, analysis, and communication, providing a flexible alternative to traditional hardware solutions.
+# Patient Monitoring and IoT Integration
+
+This project implements the microservice of Patient Monitoring and IoT Integration of the HealthCare System.
+
+## Getting Started
+
+These instructions will help you set up and run the project on your local machine.
+
+### Prerequisites
+
+- Node.js and npm (Node Package Manager) installed on your system
+
+### Installation and Running the Project
+
+#### Backend
+
+1. Navigate to the backend directory:
+
+   ```
+   cd backend
+   ```
+
+2. Install dependencies:
+
+   ```
+   npm install
+   ```
+
+3. Start the backend server:
+   ```
+   node app.js
+   ```
+
+#### Frontend
+
+1. Navigate to the frontend directory:
+
+   ```
+   cd frontend
+   ```
+
+2. Install dependencies:
+
+   ```
+   npm install
+   ```
+
+3. Start the frontend development server:
+   ```
+   npm start
+   ```
