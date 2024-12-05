@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MonitoringDashboard from "./pages/MonitoringDashboard";
 import ViewAlerts from "./pages/ViewAlerts";
+import Home from "./pages/Home";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           element={<ProtectedRoute element={MonitoringDashboard} />}
         />
         <Route path="/viewalerts" element={<ProtectedRoute element={ViewAlerts} />} />
+        <Route path="/home" element={<ProtectedRoute element={Home} />} />
       </Routes>
     </Router>
   );

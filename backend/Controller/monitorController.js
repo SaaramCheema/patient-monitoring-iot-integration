@@ -42,9 +42,27 @@ const getAllAlerts = async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
   };
+
+  const getAlerts = async (req, res) => {
+    try {
+      const userId = res.locals.userId; // Extracted from the JWT in middleware
+  
+      // Fetch only the 5 most recent alerts for the user, sorted by timestamp descending
+      const alerts = await Alert.find({ userId })
+        .sort({ timestamp: -1 }) // Sort by timestamp in descending order
+        .limit(5); // Limit to 5 alerts
+  
+      // Return the alerts as JSON
+      res.status(200).json(alerts);
+    } catch (error) {
+      console.error("Error fetching alerts:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  };   
   
   module.exports = {
     storeAlert,
+    getAlerts,
     getAllAlerts
   };
 

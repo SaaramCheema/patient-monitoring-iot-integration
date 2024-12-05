@@ -292,7 +292,10 @@ const MonitoringDashboard = () => {
           <div className="p-8 flex justify-between h-16 items-center">
             <div className="flex items-center">
               <UserCircle className="h-8 w-8 text-indigo-600" />
-              <span className="ml-3 text-lg font-semibold bg-gradient-to-r from-indigo-600 to-indigo-800 bg-clip-text text-transparent">
+              <span 
+                onClick={() => navigate("/home")} 
+                className="ml-3 text-lg font-semibold bg-gradient-to-r from-indigo-600 to-indigo-800 bg-clip-text text-transparent cursor-pointer"
+              >
                 HealthCare
               </span>
             </div>

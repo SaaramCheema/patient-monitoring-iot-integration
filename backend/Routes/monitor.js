@@ -8,5 +8,6 @@ router.post("/storeAlert", verifyToken, storeAlert);
 
 // Route to get all alerts for the logged-in user
 router.get("/allAlerts", verifyToken, getAllAlerts);
+router.get("/getAlerts", verifyToken, getAllAlerts);
 
 module.exports = router;
