@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const authRoute = require("./Routes/auth");
-
+  
 dotenv.config();
 
 const app = express();
@@ -40,11 +40,11 @@ const emitMonitoringData = () => {
   const data = {
     heartRate: generateValue(60, 100).toFixed(0),
     bloodPressure: {
-      systolic: generateValue(110, 130).toFixed(0),
-      diastolic: generateValue(70, 90).toFixed(0),
+      systolic: generateValue(80, 150).toFixed(0),
+      diastolic: generateValue(50, 90).toFixed(0),
     },
-    oxygenSaturation: generateValue(95, 100).toFixed(0),
-    temperature: generateValue(36.5, 37.5).toFixed(1),
+    oxygenSaturation: generateValue(80, 110).toFixed(0),
+    temperature: generateValue(34, 38).toFixed(1),
     timestamp: new Date().toISOString(),
   };
   io.emit("monitoringData", data);
