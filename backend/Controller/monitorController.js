@@ -28,22 +28,23 @@ const storeAlert = async (req, res) => {
   }
 };
 
-// Controller to retrieve alerts for the logged-in user
-const getAlerts = async (req, res) => {
-  try {
-    const userId = res.locals.userId; // Extract logged-in user's ID from the token
+// Controller to retrieve all alerts for the logged-in user
+const getAllAlerts = async (req, res) => {
+    try {
+      const userId = res.locals.userId; // Extract logged-in user's ID from the token
+  
+      // Retrieve all alerts for the user, sorted by timestamp
+      const alerts = await Alert.find({ userId }).sort({ timestamp: -1 });
+  
+      res.status(200).json(alerts);
+    } catch (error) {
+      console.error("Error retrieving alerts:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };
+  
+  module.exports = {
+    storeAlert,
+    getAllAlerts
+  };
 
-    // Retrieve the last 5 alerts for the user, sorted by timestamp
-    const alerts = await Alert.find({ userId }).sort({ timestamp: -1 }).limit(5);
-
-    res.status(200).json(alerts);
-  } catch (error) {
-    console.error("Error retrieving alerts:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-module.exports = {
-  storeAlert,
-  getAlerts,
-};

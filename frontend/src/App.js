@@ -4,8 +4,8 @@ import SignupPage from "./pages/Singup";
 import LoginPage from "./pages/Login";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
-
 import MonitoringDashboard from "./pages/MonitoringDashboard";
+import ViewAlerts from "./pages/ViewAlerts";
 
 const App = () => {
   return (
@@ -20,6 +20,7 @@ const App = () => {
           path="/dashboard"
           element={<ProtectedRoute element={MonitoringDashboard} />}
         />
+        <Route path="/viewalerts" element={<ProtectedRoute element={ViewAlerts} />} />
       </Routes>
     </Router>
   );

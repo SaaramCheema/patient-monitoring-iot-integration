@@ -10,7 +10,6 @@ const crypto = require("crypto");
 const generateToken = (user) => {
   const payload = {
     _id: user._id,
-    role: user.role,
   };
 
   return jwt.sign(payload, process.env.JWT_SECRET, {
@@ -215,8 +214,7 @@ let LoginGoogle = async (req, res) => {
 };
 
 let GetUserProfile = async (req, res) => {
-  const userId = res.locals.userId;
-  const roleId = res.locals.userrole;
+  const userId = res.locals.userId; // Extract user ID from middleware
 
   try {
     const userProfile = await User.findById(userId);
@@ -225,23 +223,16 @@ let GetUserProfile = async (req, res) => {
       return res.status(404).json({ message: "User profile not found" });
     }
 
-    const role = await Role.findById(roleId);
+    // Fetch the first role of the user
+    const userRole = userProfile.roles.length > 0 ? userProfile.roles[0] : "Unknown";
 
-    if (!role) {
-      return res.status(405).json({ message: "Role not found" });
-    }
-
-    const memberSince = format(
-      new Date(userProfile.createdAt),
-      "MMMM dd, yyyy"
-    );
+    const memberSince = format(new Date(userProfile.createdAt), "MMMM dd, yyyy");
 
     res.status(200).json({
       name: userProfile.name,
       email: userProfile.email,
       status: userProfile.status,
-      role: role.roleName,
-      permissions: role.permissions,
+      role: userRole, // Dynamically fetched role
       joined: memberSince,
     });
   } catch (error) {

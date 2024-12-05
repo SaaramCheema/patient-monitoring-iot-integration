@@ -40,13 +40,13 @@ const generateValue = (min, max) => Math.random() * (max - min) + min;
 
 const emitMonitoringData = () => {
   const data = {
-    heartRate: generateValue(60, 100).toFixed(0),
+    heartRate: generateValue(60, 140).toFixed(0),
     bloodPressure: {
-      systolic: generateValue(80, 150).toFixed(0),
-      diastolic: generateValue(50, 90).toFixed(0),
+      systolic: generateValue(70, 160).toFixed(0),
+      diastolic: generateValue(50, 120).toFixed(0),
     },
-    oxygenSaturation: generateValue(80, 110).toFixed(0),
-    temperature: generateValue(34, 38).toFixed(1),
+    oxygenSaturation: generateValue(70, 110).toFixed(0),
+    temperature: generateValue(36, 38).toFixed(1),
     timestamp: new Date().toISOString(),
   };
   io.emit("monitoringData", data);

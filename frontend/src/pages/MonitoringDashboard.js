@@ -12,6 +12,8 @@ import {
 import {
   UserCircle,
   LogOut,
+  LayoutDashboard,
+  Bell,
   Activity,
   Thermometer,
   Droplet,
@@ -70,13 +72,13 @@ const MonitoringDashboard = () => {
 
   // Thresholds for vital signs
   const THRESHOLDS = {
-    heartRate: { min: 60, max: 100 },
+    heartRate: { min: 65, max: 135 },
     bloodPressure: { 
-      systolic: { min: 90, max: 140 }, 
-      diastolic: { min: 60, max: 90 } 
+      systolic: { min: 75, max: 155 }, 
+      diastolic: { min: 55, max: 115 } 
     },
-    oxygenSaturation: { min: 90, max: 100 },
-    temperature: { min: 35, max: 37.5 }
+    oxygenSaturation: { min: 75, max: 105 },
+    temperature: { min: 36.5, max: 37.5 }
   };
 
   const updateDataArray = useCallback((oldData, newValue, key = "value") => {
@@ -109,19 +111,22 @@ const MonitoringDashboard = () => {
     const fetchUserName = async () => {
       try {
         const response = await fetch("http://localhost:3001/auth/getProfile", {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
             token: localStorage.getItem("token"),
           },
         });
-
-        if (response.ok) {
-          const userData = await response.json();
-          setUserName(userData.name); // Set user's name
+    
+        if (!response.ok) {
+          console.error("Failed to fetch user profile. Status:", response.status);
+          return;
         }
+    
+        const userData = await response.json();
+        setUserName(userData.name);
       } catch (error) {
-        console.error("Failed to fetch user data:", error);
+        console.error("Error fetching user data:", error);
       }
     };
 
@@ -288,16 +293,32 @@ const MonitoringDashboard = () => {
             <div className="flex items-center">
               <UserCircle className="h-8 w-8 text-indigo-600" />
               <span className="ml-3 text-lg font-semibold bg-gradient-to-r from-indigo-600 to-indigo-800 bg-clip-text text-transparent">
-                Dashboard
+                HealthCare
               </span>
             </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-lg"
-            >
-              <LogOut className="h-5 w-5 mr-2" />
-              Logout
-            </button>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={() => navigate("/dashboard")}
+                className="flex items-center px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-lg border border-indigo-200"
+              >
+                <LayoutDashboard className="h-5 w-5 mr-2" />
+                Dashboard
+              </button>
+              <button
+                onClick={() => navigate("/viewalerts")}
+                className="flex items-center px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-lg border border-indigo-200"
+              >
+                <Bell className="h-5 w-5 mr-2" />
+                Alerts
+              </button>
+              <button
+                onClick={handleLogout}
+                className="flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-lg"
+              >
+                <LogOut className="h-5 w-5 mr-2" />
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </nav>
