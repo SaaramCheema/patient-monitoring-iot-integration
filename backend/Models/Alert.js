@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
 
 const alertSchema = new mongoose.Schema({
-  alertId: {
-    type: String,
-    required: true,
-    unique: true,
-    match:
-      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
   message: {
     type: String,
@@ -17,6 +15,11 @@ const alertSchema = new mongoose.Schema({
     required: true,
     default: Date.now,
   },
+  type: {
+    type: String,
+    enum: ['heartRate', 'bloodPressure', 'oxygenSaturation', 'temperature'],
+    required: true
+  },
   acknowledged: {
     type: Boolean,
     required: true,
@@ -24,4 +27,6 @@ const alertSchema = new mongoose.Schema({
   },
 });
 
-module.exports = alertSchema;
+const Alert = mongoose.model("Alert", alertSchema);
+
+module.exports = Alert;

@@ -88,6 +88,22 @@ const MonitoringDashboard = () => {
     return newData;
   }, []);
 
+  // Function to send alert to the backend
+  const sendAlertToBackend = async (alert) => {
+    try {
+      await fetch("http://localhost:3001/monitor/storeAlert", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token"),
+        },
+        body: JSON.stringify(alert),
+      });
+    } catch (error) {
+      console.error("Error sending alert to backend:", error);
+    }
+  };
+
   useEffect(() => {
     // Fetch user's profile data to get the name
     const fetchUserName = async () => {
@@ -183,6 +199,9 @@ const MonitoringDashboard = () => {
           type: 'temperature'
         });
       }
+
+      // Send alerts to backend
+      newAlerts.forEach((alert) => sendAlertToBackend(alert));
 
       // Update alerts, keeping only the last 5
       setAlerts((prev) => [...prev, ...newAlerts].slice(-5));
