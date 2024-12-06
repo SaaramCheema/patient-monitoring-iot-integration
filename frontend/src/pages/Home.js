@@ -10,6 +10,7 @@ import {
   Droplet,
   Wind,
   Thermometer,
+  ChevronRight
 } from "lucide-react";
 
 const HomePage = () => {
@@ -127,12 +128,15 @@ const HomePage = () => {
       </nav>
 
       <div className="max-w-7xl p-8 mx-auto mt-4">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
+        <header className="mb-8 space-y-2">
+          <h1 className="text-3xl font-bold text-gray-800 flex items-center space-x-3">
             {userName ? `Welcome, ${userName}!` : "Welcome to Patient Portal"}
+            <span className="ml-3 text-sm bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full">
+              {userName ? "Active" : "Guest"}
+            </span>
           </h1>
-          <p className="text-gray-600">
-            Stay updated with your latest alerts and health information.
+          <p className="text-gray-600 max-w-xl">
+            Stay updated with your latest alerts and health information. Your wellness is our priority.
           </p>
         </header>
 
@@ -142,23 +146,32 @@ const HomePage = () => {
             title="Dashboard"
             description="View your vital signs in real-time."
             onClick={() => handleNavigate("/dashboard")}
+            icon={<LayoutDashboard className="w-8 h-8 text-indigo-600" />}
           />
           <QuickLink
             title="Alerts"
             description="Check all recent alerts."
             onClick={() => handleNavigate("/viewalerts")}
+            icon={<Bell className="w-8 h-8 text-indigo-600" />}
           />
           <QuickLink
             title="Settings"
             description="Manage your profile and preferences."
             onClick={() => handleNavigate("/settings")}
+            icon={<UserCircle className="w-8 h-8 text-indigo-600" />}
           />
         </div>
 
         {/* Recent Alerts */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="p-6 bg-gray-50 border-b">
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+          <div className="p-6 bg-indigo-50 border-b border-gray-200 flex justify-between items-center">
             <h3 className="text-lg font-semibold text-gray-800">Recent Alerts</h3>
+            <button 
+              onClick={() => navigate("/viewalerts")}
+              className="text-indigo-600 hover:text-indigo-800 flex items-center text-sm"
+            >
+              View All <ChevronRight className="w-4 h-4 ml-1" />
+            </button>
           </div>
           
           {recentAlerts.length > 0 ? (
@@ -166,7 +179,7 @@ const HomePage = () => {
               {recentAlerts.map((alert, index) => (
                 <div 
                   key={index} 
-                  className="px-6 py-4 hover:bg-gray-50 transition-colors duration-200 flex items-center"
+                  className="px-6 py-4 hover:bg-indigo-50/50 transition-colors duration-200 flex items-center"
                 >
                   <div className="flex-shrink-0 mr-4">
                     {renderAlertIcon(alert.type)}
@@ -174,7 +187,7 @@ const HomePage = () => {
                   <div className="flex-grow">
                     <div className="flex justify-between items-center">
                       <p className="text-sm text-gray-700">{alert.message}</p>
-                      <span className="text-xs text-gray-500 ml-4">
+                      <span className="text-xs text-gray-500 ml-4 bg-gray-100 px-2 py-1 rounded-full">
                         {new Date(alert.timestamp).toLocaleString()}
                       </span>
                     </div>
@@ -193,11 +206,17 @@ const HomePage = () => {
   );
 };
 
-const QuickLink = ({ title, description, onClick }) => (
+const QuickLink = ({ title, description, onClick, icon }) => (
   <div
-    className="bg-white rounded-lg p-6 shadow-lg cursor-pointer hover:shadow-xl transition-shadow transform hover:-translate-y-1"
+    className="bg-white rounded-lg p-6 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 border border-gray-100 group"
     onClick={onClick}
   >
+    <div className="flex justify-between items-center mb-4">
+      <div className="p-3 bg-indigo-50 rounded-lg">
+        {icon}
+      </div>
+      <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-indigo-600 transition-colors" />
+    </div>
     <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
     <p className="text-gray-600 mt-2">{description}</p>
   </div>

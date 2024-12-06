@@ -90,7 +90,7 @@ const ViewAlerts = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <nav className="bg-white/90 backdrop-blur-sm shadow-sm border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto">
           <div className="p-8 flex justify-between h-16 items-center">
@@ -131,16 +131,25 @@ const ViewAlerts = () => {
       </nav>
 
       <div className="max-w-7xl p-8 mx-auto mt-4">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
-            {userName ? `${userName}'s Alerts` : "Alerts"}
-          </h1>
-          <p className="text-gray-600">All recent alerts are displayed below</p>
+        <header className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800 flex items-center space-x-3">
+              <Bell className="mr-4 text-indigo-600" size={40} />
+              {userName ? `${userName}'s Alerts` : "Alerts"}
+            </h1>
+            <p className="text-gray-600 mt-2 text-lg">All recent alerts are displayed below</p>
+          </div>
+          <div className="bg-indigo-50 rounded-full p-3">
+            <Bell className="text-indigo-600" size={24} />
+          </div>
         </header>
 
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="p-6 bg-gray-50 border-b">
-            <h3 className="text-lg font-semibold text-gray-800">Alert History</h3>
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 transform transition-all duration-300 hover:shadow-2xl">
+          <div className="p-6 bg-gradient-to-r from-indigo-50 to-indigo-100 border-b">
+            <h3 className="text-lg font-semibold text-gray-800 flex items-center">
+              <AlertTriangle className="mr-3 text-indigo-600" size={20} />
+              Alert History
+            </h3>
           </div>
           
           {alerts.length > 0 ? (
@@ -148,22 +157,22 @@ const ViewAlerts = () => {
               {alerts.map((alert, index) => (
                 <div 
                   key={index} 
-                  className="px-6 py-4 hover:bg-gray-50 transition-colors duration-200 flex items-center"
+                  className="px-6 py-5 hover:bg-indigo-50 transition-all duration-300 ease-in-out flex items-center group"
                 >
-                  <div className="flex-shrink-0 mr-4">
+                  <div className="flex-shrink-0 mr-5">
                     {renderAlertIcon(alert.type)}
                   </div>
                   <div className="flex-grow">
                     <div className="flex justify-between items-center">
                       <div>
-                        <h4 className="font-medium text-gray-800">
+                        <h4 className="font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors">
                           {getAlertTypeDescription(alert.type)} Alert
                         </h4>
                         <p className="text-sm text-gray-600">
                           {alert.message}
                         </p>
                       </div>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
                         {new Date(alert.timestamp).toLocaleString()}
                       </span>
                     </div>
@@ -172,9 +181,15 @@ const ViewAlerts = () => {
               ))}
             </div>
           ) : (
-            <div className="p-6 text-center">
-              <CheckCircle className="mx-auto h-12 w-12 text-green-500 mb-4" />
-              <p className="text-gray-600">No alerts at the moment. All systems are normal!</p>
+            <div className="p-12 text-center space-y-4">
+              <CheckCircle className="mx-auto h-16 w-16 text-green-500 mb-4 opacity-70" />
+              <h2 className="text-2xl font-bold text-gray-700 mb-2">All Clear</h2>
+              <p className="text-gray-500 text-lg">No alerts at the moment. All systems are normal!</p>
+              <div className="flex justify-center">
+                <div className="bg-green-100 rounded-full px-6 py-3 text-green-700 font-semibold text-lg">
+                  System Status: Stable
+                </div>
+              </div>
             </div>
           )}
         </div>

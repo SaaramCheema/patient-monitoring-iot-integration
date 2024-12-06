@@ -60,7 +60,12 @@ const LoginPage = () => {
         localStorage.setItem("token", responseData.token); // Store JWT token
         localStorage.setItem("userId", responseData.user._id); // Store user ID
         localStorage.setItem("userFullName", responseData.user.FullName); // Store full name
-        navigate("/viewalerts");
+        if(responseData.user.Role=="Patient"){
+          navigate("/home");
+        }
+        else if(responseData.user.Role=="Doctor"){
+          navigate("/doctorhome");
+        }
       }
     } catch (err) {
       setSuccess("");
@@ -241,7 +246,7 @@ const LoginPage = () => {
             Reset password
           </a>
           <span className="mx-2 text-gray-500">•</span>
-          <a href="/" className="text-blue-500 hover:underline">
+          <a href="/signup" className="text-blue-500 hover:underline">
             New user? Sign up
           </a>
         </div>
