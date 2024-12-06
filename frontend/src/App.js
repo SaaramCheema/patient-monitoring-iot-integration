@@ -12,6 +12,7 @@ import PatientAlertsPage from "./pages/PatientAlertsPage";
 import NoteModal from "./pages/NoteModal";
 import DoctorNotes from "./pages/DoctorNotes";
 import NurseHome from "./pages/NurseHome";
+import PatientAlerts from "./pages/PatientAlert";
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
         />
         <Route path="/doctornotes" element={<ProtectedRoute element={DoctorNotes} />} />
         <Route path="/nursehome" element={<ProtectedRoute element={NurseHome} />} />
+        <Route path="/nurse/alerts/:userId" element={<ProtectedRoute element={PatientAlerts} />} />
 
       </Routes>
     </Router>

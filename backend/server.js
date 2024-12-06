@@ -7,6 +7,7 @@ const cors = require("cors");
 const authRoute = require("./Routes/auth");
 const monitorRoutes = require("./Routes/monitor");
 const doctorRoutes = require("./Routes/doctor");
+const nurseRoutes = require("./Routes/nurse");
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ mongoose
 app.use("/auth", authRoute);
 app.use("/monitor", monitorRoutes);
 app.use("/doctor", doctorRoutes);
+app.use("/nurse", nurseRoutes);
 
 // Data simulation and WebSocket setup
 const generateValue = (min, max) => Math.random() * (max - min) + min;

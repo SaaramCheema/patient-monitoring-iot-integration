@@ -1,15 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import NoteManagementModal from "./NoteManagementModal";
 import { useNavigate } from "react-router-dom";
-import { UserCircle, LayoutDashboard, Bell, LogOut } from "lucide-react";
 
-const NurseHome = () => {
-  const [patients, setPatients] = useState([]);
+import {
+    UserCircle,
+    LogOut,
+    LayoutDashboard,
+    Bell,
+    Activity,
+    Thermometer,
+    Droplet,
+    Wind,
+    AlertTriangle
+  } from "lucide-react";
+
+const PatientAlerts = () => {
+  const { userId } = useParams();
+  const [alerts, setAlerts] = useState([]);
+  const [selectedNote, setSelectedNote] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPatients = async () => {
+    const fetchAlerts = async () => {
       try {
-        const response = await fetch("http://localhost:3001/nurse/patients", {
+        const response = await fetch(`http://localhost:3001/nurse/alerts/${userId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -18,17 +33,21 @@ const NurseHome = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          setPatients(data);
+          setAlerts(data);
         } else {
-          console.error("Failed to fetch patients");
+          console.error("Failed to fetch alerts");
         }
       } catch (error) {
         console.error("Error:", error);
       }
     };
 
-    fetchPatients();
-  }, []);
+    fetchAlerts();
+  }, [userId]);
+
+  const handleNoteClick = (note) => {
+    setSelectedNote(note);
+  };
 
   const handleLogout = () => {
     localStorage.clear();
@@ -77,23 +96,47 @@ const NurseHome = () => {
       </nav>
 
       <div className="max-w-7xl mx-auto p-8">
-        <h2 className="text-2xl font-bold mb-4">Patients</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {patients.map((patient) => (
-            <div
-              key={patient._id}
-              className="p-4 bg-white shadow-lg rounded-lg cursor-pointer"
-              onClick={() => navigate(`/nurse/alerts/${patient._id}`)}
-            >
-              <UserCircle className="h-10 w-10 text-blue-500" />
-              <h3 className="text-lg font-semibold mt-2">{patient.name}</h3>
-              <p className="text-gray-600">{patient.email}</p>
-            </div>
-          ))}
-        </div>
+        <h2 className="text-2xl font-bold mb-4">Alerts</h2>
+        <table className="min-w-full bg-white shadow-md rounded-lg">
+          <thead>
+            <tr>
+              <th className="px-4 py-2">Alert</th>
+              <th className="px-4 py-2">Timestamp</th>
+              <th className="px-4 py-2">Note</th>
+              <th className="px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {alerts.map((alert) => (
+              <tr key={alert._id} className="border-b">
+                <td className="px-4 py-2">{alert.message}</td>
+                <td className="px-4 py-2">{new Date(alert.timestamp).toLocaleString()}</td>
+                <td className="px-4 py-2">
+                  {alert.notes?.length ? alert.notes[0].content : "No note"}
+                </td>
+                <td className="px-4 py-2">
+                  {alert.notes?.length ? (
+                    <button
+                      className="text-blue-500 hover:underline"
+                      onClick={() => handleNoteClick(alert.notes[0])}
+                    >
+                      Manage Note
+                    </button>
+                  ) : (
+                    "No actions"
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+
+      {selectedNote && (
+        <NoteManagementModal note={selectedNote} onClose={() => setSelectedNote(null)} />
+      )}
     </div>
   );
 };
 
-export default NurseHome;
+export default PatientAlerts;
