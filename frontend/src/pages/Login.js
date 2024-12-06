@@ -66,6 +66,9 @@ const LoginPage = () => {
         else if(responseData.user.Role=="Doctor"){
           navigate("/doctorhome");
         }
+        else if(responseData.user.Role=="Nurse"){
+          navigate("/nursehome");
+        }
       }
     } catch (err) {
       setSuccess("");

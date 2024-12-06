@@ -7,6 +7,12 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import MonitoringDashboard from "./pages/MonitoringDashboard";
 import ViewAlerts from "./pages/ViewAlerts";
 import Home from "./pages/Home";
+import DoctorHome from "./pages/DoctorHome";
+import PatientAlertsPage from "./pages/PatientAlertsPage";
+import NoteModal from "./pages/NoteModal";
+import DoctorNotes from "./pages/DoctorNotes";
+import NurseHome from "./pages/NurseHome";
+
 
 const App = () => {
   return (
@@ -23,6 +29,18 @@ const App = () => {
         />
         <Route path="/viewalerts" element={<ProtectedRoute element={ViewAlerts} />} />
         <Route path="/home" element={<ProtectedRoute element={Home} />} />
+        <Route path="/doctorhome" element={<ProtectedRoute element={DoctorHome} />} />
+        <Route
+          path="/doctor/patient-alerts/:patientId"
+          element={<ProtectedRoute element={PatientAlertsPage} />}
+        />
+        <Route
+          path="/doctor/note/:alertId"
+          element={<ProtectedRoute element={NoteModal} />}
+        />
+        <Route path="/doctornotes" element={<ProtectedRoute element={DoctorNotes} />} />
+        <Route path="/nursehome" element={<ProtectedRoute element={NurseHome} />} />
+
       </Routes>
     </Router>
   );

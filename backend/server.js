@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -7,7 +6,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const authRoute = require("./Routes/auth");
 const monitorRoutes = require("./Routes/monitor");
-  
+const doctorRoutes = require("./Routes/doctor");
+
 dotenv.config();
 
 const app = express();
@@ -34,6 +34,7 @@ mongoose
 // Route setup
 app.use("/auth", authRoute);
 app.use("/monitor", monitorRoutes);
+app.use("/doctor", doctorRoutes);
 
 // Data simulation and WebSocket setup
 const generateValue = (min, max) => Math.random() * (max - min) + min;

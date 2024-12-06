@@ -19,6 +19,7 @@ const generateToken = (user) => {
 
 let RegisterUser = async (req, res) => {
   try {
+    // Check if the user already exists
     const existingUser = await User.findOne({ email: req.body.Email });
 
     if (existingUser) {
@@ -176,6 +177,7 @@ let LoginUser = async (req, res) => {
       user: {
         _id: user._id, // Return user ID
         FullName: user.name, // Return full name
+        Role: user.roles[0]
       },
     });
   } catch (err) {
