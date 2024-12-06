@@ -19,7 +19,6 @@ const generateToken = (user) => {
 
 let RegisterUser = async (req, res) => {
   try {
-    // Check if the user already exists
     const existingUser = await User.findOne({ email: req.body.Email });
 
     if (existingUser) {
